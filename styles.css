@@ -1,7 +1,7 @@
 body {
-  background-color: #431C52; 
-  color: white; 
-  font-family: "Times New Roman", Times, serif; 
+  background-color: #D9F0FF;
+  color: #431C52;
+  font-family: "Times New Roman", Times, serif;
   margin: 20px;
 }
 
@@ -16,16 +16,16 @@ nav ul {
 
 nav ul li {
   display: inline;
-  margin-right: 10px; 
+  margin-right: 10px;
 }
 
 nav ul li a {
-  color: white; 
+  color: #431C52;
   text-decoration: none;
 }
 
 nav ul li a:hover {
-  color: #A934BD; 
+  color: #6F73D2;
 }
 
 main {
@@ -33,9 +33,9 @@ main {
 }
 
 article {
-  background-color: #5A2776; 
+  background-color: #A3D5FF;
   padding: 20px;
-  border-radius: 10px; 
+  border-radius: 10px;
 }
 
 section {
@@ -43,21 +43,22 @@ section {
 }
 
 h2 {
-  color: #DE73FF; 
+  color: #83C9F4;
 }
 
 h3 {
-  color: #FF00FF; 
+  color: #FF00FF;
 }
 
 p {
-  color: white; 
+  color: #431C52;
 }
 
 a {
-  color: #A934BD; 
+  color: #7681B3;
 }
 
 a:hover {
-  color: #431C52; 
+  color: #DE73FF;
 }
+
