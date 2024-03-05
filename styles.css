@@ -47,7 +47,9 @@ h2 {
 }
 
 h3 {
-  color: #27BEF0;
+  color: black;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 p {
