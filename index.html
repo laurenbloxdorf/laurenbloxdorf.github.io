@@ -1,10 +1,675 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My GitHub Pages Site</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lauren Bloxdorf — Data Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #faf9f7;
+      --bg2: #f3f1ec;
+      --surface: #ffffff;
+      --border: #e4e0d8;
+      --border2: #ccc9c0;
+      --accent: #2d5a3d;
+      --accent-light: #e8f0eb;
+      --accent2: #8b6914;
+      --text: #1a1916;
+      --muted: #7a7670;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.3rem 3rem;
+      background: rgba(250,249,247,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-circle {
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,90,61,0.06) 0%, transparent 70%);
+      right: -200px; top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: fadeUp 0.5s 0.1s forwards;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px; height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.25s forwards;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+
+    .hero-desc {
+      margin-top: 1.8rem;
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 460px;
+      line-height: 1.8;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.4s forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.55s forwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 1.5rem;
+      font-family: var(--font-body);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: all 0.22s;
+      border-radius: 2px;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #1e3d2a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45,90,61,0.18); }
+    .btn-ghost { border: 1px solid var(--border2); color: var(--muted); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      border: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.7s 0.6s forwards;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 1.5rem;
+      background: var(--surface);
+      transition: background 0.2s;
+    }
+    .info-row:hover { background: var(--bg2); }
+    .info-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .info-val {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .info-val a { color: var(--accent); text-decoration: none; }
+    .info-val a:hover { text-decoration: underline; }
+    .status-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #4caf50;
+      margin-right: 0.5rem;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+
+    section { padding: 6rem 3rem; }
+    .section-header { margin-bottom: 3rem; }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+
+    #about {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.85;
+    }
+    .about-text strong { color: var(--text); font-weight: 500; }
+    .about-aside { display: flex; flex-direction: column; gap: 1rem; }
+    .aside-card {
+      padding: 1.4rem 1.6rem;
+      border: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .aside-card-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .aside-card-val { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; }
+    .aside-card-sub { font-size: 12px; color: var(--muted); margin-top: 0.2rem; }
+
+    #experience { border-bottom: 1px solid var(--border); }
+    .exp-list { display: flex; flex-direction: column; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 3rem;
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: 1px solid var(--border); }
+    .exp-company { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; }
+    .exp-date { font-size: 12px; color: var(--muted); letter-spacing: 0.05em; margin-top: 0.3rem; }
+    .exp-location { font-size: 12px; color: var(--muted); }
+    .exp-role { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; color: var(--accent); margin-bottom: 1rem; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .exp-bullets li {
+      font-size: 14px; color: var(--muted); font-weight: 300; line-height: 1.7;
+      padding-left: 1.1rem; position: relative;
+    }
+    .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--border2); font-size: 12px; }
+
+    #skills { background: var(--surface); border-bottom: 1px solid var(--border); }
+    .skills-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2px;
+      background: var(--border);
+    }
+    .skill-col { background: var(--surface); padding: 2rem; }
+    .skill-col-title {
+      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent2);
+      margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--border);
+    }
+    .skill-list { display: flex; flex-direction: column; gap: 0.45rem; }
+    .skill-item {
+      font-size: 13px; color: var(--muted); font-weight: 300;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .skill-item::before {
+      content: ''; display: block; width: 4px; height: 4px;
+      border-radius: 50%; background: var(--accent); flex-shrink: 0;
+    }
+
+    #projects { border-bottom: 1px solid var(--border); }
+    .projects-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+    .project-row {
+      background: var(--surface);
+      padding: 2.2rem 2.4rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: start;
+      transition: background 0.2s;
+    }
+    .project-row:hover { background: var(--bg2); }
+    .project-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .project-desc { font-size: 13.5px; color: var(--muted); font-weight: 300; line-height: 1.75; max-width: 640px; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+    .project-tag {
+      font-size: 11px; padding: 0.25rem 0.65rem;
+      border: 1px solid var(--border); color: var(--muted); background: var(--bg); letter-spacing: 0.04em;
+    }
+    .project-arrow { font-size: 1.2rem; color: var(--border2); margin-top: 0.3rem; transition: color 0.2s, transform 0.2s; }
+    .project-row:hover .project-arrow { color: var(--accent); transform: translate(3px,-3px); }
+
+    #education { background: var(--surface); border-bottom: 1px solid var(--border); }
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+    .edu-card { background: var(--surface); padding: 2.2rem; }
+    .edu-school { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .edu-degree { font-size: 13px; color: var(--accent); font-weight: 400; margin-bottom: 0.8rem; }
+    .edu-year {
+      display: inline-block; font-size: 11px; letter-spacing: 0.1em;
+      background: var(--accent-light); color: var(--accent); padding: 0.2rem 0.7rem; margin-bottom: 1rem;
+    }
+    .edu-notes { display: flex; flex-direction: column; gap: 0.4rem; }
+    .edu-note { font-size: 13px; color: var(--muted); font-weight: 300; padding-left: 1rem; position: relative; }
+    .edu-note::before { content: '·'; position: absolute; left: 0; color: var(--accent); }
+
+    #contact {
+      text-align: center;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+    .contact-inner { max-width: 520px; margin: 0 auto; }
+    .contact-intro { color: var(--muted); font-size: 14px; font-weight: 300; margin-bottom: 2rem; }
+    .contact-email {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .contact-email:hover { color: var(--accent); }
+    .contact-links { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.6rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--surface);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 2.5rem; }
+      .hero-bg-circle { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .edu-grid { grid-template-columns: 1fr; }
+      section { padding: 4rem 1.5rem; }
+      nav { padding: 1.2rem 1.5rem; }
+      footer { flex-direction: column; gap: 0.4rem; text-align: center; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Hello world!</h1>
-    <p>Welcome to my GitHub Pages site!</p>
+
+  <nav>
+    <a href="#hero" class="nav-logo">Lauren Bloxdorf</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-bg-circle"></div>
+    <div>
+      <div class="hero-eyebrow">Data Engineer &amp; Analytics Professional</div>
+      <h1>Lauren<br><em>Bloxdorf.</em></h1>
+      <p class="hero-desc">Building scalable data pipelines, clean architecture, and BI systems that transform raw data into reliable, decision-ready insight.</p>
+      <div class="hero-cta">
+        <a href="Lauren_Bloxdorf_Resume.pdf" download class="btn btn-primary">↓ Download Resume</a>
+        <a href="https://linkedin.com/in/lauren-bloxdorf" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+        <a href="#projects" class="btn btn-ghost">View Projects</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="info-row">
+        <span class="info-label">Status</span>
+        <span class="info-val"><span class="status-dot"></span>Open to Opportunities</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Degree</span>
+        <span class="info-val">MS Business Analytics</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">University</span>
+        <span class="info-val">UW–Madison</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Location</span>
+        <span class="info-val">Wisconsin</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Email</span>
+        <span class="info-val"><a href="mailto:lauren.bloxdorf@icloud.com">lauren.bloxdorf@icloud.com</a></span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Phone</span>
+        <span class="info-val">(262) 321-9703</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="section-header">
+          <p class="section-label">01 — About</p>
+          <h2 class="section-title">Data systems that<br>actually work.</h2>
+        </div>
+        <p>I'm a data professional with a strong foundation in <strong>data engineering, analytics engineering, and scalable data architecture</strong>. I specialize in building end-to-end pipelines that are reliable, maintainable, and built for real-world complexity.</p>
+        <p>My background spans <strong>ETL development, data modeling, NLP, and BI tooling</strong> — with hands-on experience at Milwaukee Tool and CNH Industrial. I care about the full stack: from raw ingestion to the dashboard a stakeholder actually uses to make decisions.</p>
+        <p>Currently completing my <strong>MS in Business Analytics at UW–Madison</strong>, graduating 2026, with coursework in advanced SQL, data warehousing, and ML in business.</p>
+        <div style="margin-top:2rem;">
+          <a href="Lauren_Bloxdorf_Resume.pdf" download class="btn btn-primary">Download Resume</a>
+        </div>
+      </div>
+      <div class="about-aside reveal">
+        <div class="aside-card">
+          <div class="aside-card-label">Focus Areas</div>
+          <div class="aside-card-val">Data Engineering &amp; BI</div>
+          <div class="aside-card-sub">ETL · Pipelines · Dashboards · NLP</div>
+        </div>
+        <div class="aside-card">
+          <div class="aside-card-label">Industries</div>
+          <div class="aside-card-val">Manufacturing &amp; Finance</div>
+          <div class="aside-card-sub">Milwaukee Tool · CNH Industrial · Consumers CU</div>
+        </div>
+        <div class="aside-card">
+          <div class="aside-card-label">Education</div>
+          <div class="aside-card-val">MS Business Analytics</div>
+          <div class="aside-card-sub">UW–Madison, Expected 2026</div>
+        </div>
+        <div class="aside-card">
+          <div class="aside-card-label">Certificate</div>
+          <div class="aside-card-val">Microsoft Excel 2016</div>
+          <div class="aside-card-sub">Microsoft Certified Application Specialist</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-header reveal">
+      <p class="section-label">02 — Experience</p>
+      <h2 class="section-title">Where I've worked.</h2>
+    </div>
+    <div class="exp-list">
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-company">Milwaukee Tool</div>
+          <div class="exp-date">May – Aug 2025</div>
+          <div class="exp-location">Milwaukee, WI</div>
+        </div>
+        <div>
+          <div class="exp-role">Data Analytics Intern</div>
+          <ul class="exp-bullets">
+            <li>Performed NLP analysis on 10,000+ user-generated content pieces to extract sentiment, model topics, and identify key customer themes using Python.</li>
+            <li>Designed and executed ETL processes to integrate and transform marketing data from multiple sources, building a Power BI dashboard visualizing marketing funnel investment impact.</li>
+            <li>Eliminated 5 hours of manual reporting per cycle by streamlining workflows compared to previous methods.</li>
+            <li>Led weekly stakeholder meetings to provide project updates, address roadblocks, and ensure alignment and timely decision-making.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-company">CNH Industrial</div>
+          <div class="exp-date">May – Aug 2024</div>
+          <div class="exp-location">Racine, WI</div>
+        </div>
+        <div>
+          <div class="exp-role">Business Intelligence &amp; Data Science Intern</div>
+          <ul class="exp-bullets">
+            <li>Implemented SQL and Python in Databricks to analyze large-scale structured and unstructured datasets, leveraging NLP for text-based insights.</li>
+            <li>Designed 2 interactive Power BI dashboards enabling real-time insights for cross-functional teams.</li>
+            <li>Automated manual reporting workflows and provided strategic insights to senior leadership guiding operational improvements and resource allocation.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-company">Consumers Credit Union</div>
+          <div class="exp-date">May – Aug 2023</div>
+          <div class="exp-location">Gurnee, IL</div>
+        </div>
+        <div>
+          <div class="exp-role">Business Intelligence Intern</div>
+          <ul class="exp-bullets">
+            <li>Conducted in-depth analysis using SQL, Excel, and DOMO to improve efficiency of departmental analytics and decision-making.</li>
+            <li>Created dashboards and visual reports communicating performance trends and recommendations to executives.</li>
+            <li>Presented performance insights and recommendations to managers daily, enhancing cross-team communication and alignment.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-header reveal">
+      <p class="section-label">03 — Skills</p>
+      <h2 class="section-title">Tools &amp; technologies.</h2>
+    </div>
+    <div class="skills-row reveal">
+      <div class="skill-col">
+        <div class="skill-col-title">Languages</div>
+        <div class="skill-list">
+          <span class="skill-item">SQL</span>
+          <span class="skill-item">Python</span>
+          <span class="skill-item">R</span>
+        </div>
+      </div>
+      <div class="skill-col">
+        <div class="skill-col-title">Data Platforms</div>
+        <div class="skill-list">
+          <span class="skill-item">Databricks</span>
+          <span class="skill-item">Google BigQuery</span>
+          <span class="skill-item">Snowflake</span>
+          <span class="skill-item">AWS</span>
+        </div>
+      </div>
+      <div class="skill-col">
+        <div class="skill-col-title">BI &amp; Visualization</div>
+        <div class="skill-list">
+          <span class="skill-item">Power BI</span>
+          <span class="skill-item">Tableau</span>
+          <span class="skill-item">DOMO</span>
+        </div>
+      </div>
+      <div class="skill-col">
+        <div class="skill-col-title">Data Engineering</div>
+        <div class="skill-list">
+          <span class="skill-item">dbt</span>
+          <span class="skill-item">ETL Development</span>
+          <span class="skill-item">Data Modeling</span>
+          <span class="skill-item">NLP</span>
+        </div>
+      </div>
+      <div class="skill-col">
+        <div class="skill-col-title">Databases</div>
+        <div class="skill-list">
+          <span class="skill-item">MySQL Workbench</span>
+          <span class="skill-item">Snowflake</span>
+          <span class="skill-item">BigQuery</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-header reveal">
+      <p class="section-label">04 — Projects</p>
+      <h2 class="section-title">Selected work.</h2>
+    </div>
+    <div class="projects-list reveal">
+      <div class="project-row">
+        <div>
+          <div class="project-title">Marketing Funnel Dashboard</div>
+          <p class="project-desc">Designed and built a dynamic Power BI dashboard by performing ETL processes on marketing data to visualize the funnel and demonstrate the impact of marketing investments, enabling stakeholders to assess campaign effectiveness and optimize strategy.</p>
+          <div class="project-tags">
+            <span class="project-tag">Power BI</span>
+            <span class="project-tag">SQL</span>
+            <span class="project-tag">ETL</span>
+          </div>
+        </div>
+        <div class="project-arrow">↗</div>
+      </div>
+      <div class="project-row">
+        <div>
+          <div class="project-title">Text Mining for Warranty Claims Reduction</div>
+          <p class="project-desc">Applied NLP techniques in Python and SQL to analyze claim descriptions, reducing warranty-related tickets by 10% through insights that improved claim accuracy and process efficiency.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">SQL</span>
+            <span class="project-tag">NLP</span>
+          </div>
+        </div>
+        <div class="project-arrow">↗</div>
+      </div>
+      <div class="project-row">
+        <div>
+          <div class="project-title">Audit Claim Selection Dashboard</div>
+          <p class="project-desc">Automated audit selection by developing custom flags and DAX measures in Power BI, saving manual hours and streamlining audit workflows across the team.</p>
+          <div class="project-tags">
+            <span class="project-tag">Power BI</span>
+            <span class="project-tag">DAX</span>
+            <span class="project-tag">Automation</span>
+          </div>
+        </div>
+        <div class="project-arrow">↗</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="section-header reveal">
+      <p class="section-label">05 — Education</p>
+      <h2 class="section-title">Academic background.</h2>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu-card">
+        <div class="edu-school">University of Wisconsin–Madison</div>
+        <div class="edu-degree">Master of Science, Business Analytics (Candidate)</div>
+        <div class="edu-year">Expected 2026</div>
+        <div class="edu-notes">
+          <div class="edu-note">Business Data Technology</div>
+          <div class="edu-note">Advanced SQL &amp; Data Warehousing</div>
+          <div class="edu-note">ML and AI Models in Business</div>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-school">University of Wisconsin–Madison</div>
+        <div class="edu-degree">Bachelor of Science · Certificate in Mathematics, Digital Studies</div>
+        <div class="edu-year">2025</div>
+        <div class="edu-notes">
+          <div class="edu-note">Dot Data (2022–2025): Real-world analytics workshops</div>
+          <div class="edu-note">Women in Business Technology (2023–2025)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-inner">
+      <p class="section-label reveal">06 — Contact</p>
+      <h2 class="section-title reveal" style="margin-bottom:1.2rem;">Let's connect.</h2>
+      <p class="contact-intro reveal">Open to full-time data engineering and analytics roles. Feel free to reach out.</p>
+      <a href="mailto:lauren.bloxdorf@icloud.com" class="contact-email reveal">lauren.bloxdorf@icloud.com</a>
+      <div class="contact-links reveal">
+        <a href="https://linkedin.com/in/lauren-bloxdorf" target="_blank" class="btn btn-primary">LinkedIn ↗</a>
+        <a href="Lauren_Bloxdorf_Resume.pdf" download class="btn btn-ghost">↓ Resume</a>
+        <a href="tel:2623219703" class="btn btn-ghost">(262) 321-9703</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Lauren Bloxdorf</span>
+    <span>Data Engineer · UW–Madison</span>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 70);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
