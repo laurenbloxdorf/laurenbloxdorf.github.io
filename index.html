@@ -558,50 +558,105 @@
     </div>
   </section>
 
-  <section id="projects">
-    <div class="section-header reveal">
-      <p class="section-label">04 — Projects</p>
-      <h2 class="section-title">Selected work.</h2>
+  <!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <p class="section-label">04 — Projects</p>
+    <h2 class="section-title">Selected work.</h2>
+  </div>
+
+  <!-- TABS -->
+  <div class="proj-tabs reveal">
+    <button class="proj-tab active" onclick="switchTab('professional', this)">Professional</button>
+    <button class="proj-tab" onclick="switchTab('personal', this)">Personal / GitHub</button>
+  </div>
+
+  <!-- PROFESSIONAL -->
+  <div id="tab-professional" class="projects-list tab-panel active">
+    <div class="project-row">
+      <div>
+        <div class="proj-badge">Milwaukee Tool</div>
+        <div class="project-title">Marketing Funnel Dashboard</div>
+        <p class="project-desc">Designed and built a dynamic Power BI dashboard by performing ETL processes on marketing data to visualize the funnel and demonstrate the impact of marketing investments, enabling stakeholders to assess campaign effectiveness and optimize strategy.</p>
+        <div class="project-tags">
+          <span class="project-tag">Power BI</span>
+          <span class="project-tag">SQL</span>
+          <span class="project-tag">ETL</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
     </div>
-    <div class="projects-list reveal">
-      <div class="project-row">
-        <div>
-          <div class="project-title">Marketing Funnel Dashboard</div>
-          <p class="project-desc">Designed and built a dynamic Power BI dashboard by performing ETL processes on marketing data to visualize the funnel and demonstrate the impact of marketing investments, enabling stakeholders to assess campaign effectiveness and optimize strategy.</p>
-          <div class="project-tags">
-            <span class="project-tag">Power BI</span>
-            <span class="project-tag">SQL</span>
-            <span class="project-tag">ETL</span>
-          </div>
+    <div class="project-row">
+      <div>
+        <div class="proj-badge">Milwaukee Tool</div>
+        <div class="project-title">Text Mining for Warranty Claims Reduction</div>
+        <p class="project-desc">Applied NLP techniques in Python and SQL to analyze claim descriptions, reducing warranty-related tickets by 10% through insights that improved claim accuracy and process efficiency.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">SQL</span>
+          <span class="project-tag">NLP</span>
         </div>
-        <div class="project-arrow">↗</div>
       </div>
-      <div class="project-row">
-        <div>
-          <div class="project-title">Text Mining for Warranty Claims Reduction</div>
-          <p class="project-desc">Applied NLP techniques in Python and SQL to analyze claim descriptions, reducing warranty-related tickets by 10% through insights that improved claim accuracy and process efficiency.</p>
-          <div class="project-tags">
-            <span class="project-tag">Python</span>
-            <span class="project-tag">SQL</span>
-            <span class="project-tag">NLP</span>
-          </div>
-        </div>
-        <div class="project-arrow">↗</div>
-      </div>
-      <div class="project-row">
-        <div>
-          <div class="project-title">Audit Claim Selection Dashboard</div>
-          <p class="project-desc">Automated audit selection by developing custom flags and DAX measures in Power BI, saving manual hours and streamlining audit workflows across the team.</p>
-          <div class="project-tags">
-            <span class="project-tag">Power BI</span>
-            <span class="project-tag">DAX</span>
-            <span class="project-tag">Automation</span>
-          </div>
-        </div>
-        <div class="project-arrow">↗</div>
-      </div>
+      <div class="project-arrow">↗</div>
     </div>
-  </section>
+    <div class="project-row">
+      <div>
+        <div class="proj-badge">Consumers Credit Union</div>
+        <div class="project-title">Audit Claim Selection Dashboard</div>
+        <p class="project-desc">Automated audit selection by developing custom flags and DAX measures in Power BI, saving manual hours and streamlining audit workflows across the team.</p>
+        <div class="project-tags">
+          <span class="project-tag">Power BI</span>
+          <span class="project-tag">DAX</span>
+          <span class="project-tag">Automation</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </div>
+  </div>
+
+  <!-- PERSONAL / GITHUB -->
+  <div id="tab-personal" class="projects-list tab-panel">
+    <div class="project-row">
+      <div>
+        <div class="proj-badge github">GitHub</div>
+        <div class="project-title">Netflix Content Clustering with KMeans</div>
+        <p class="project-desc">An unsupervised machine learning project that clusters Netflix titles by genre, rating, and duration and uses those clusters to power a content recommendation engine. This project applies KMeans clustering to the Netflix dataset to discover natural groupings of content. After clustering, a cosine similarity recommender suggests similar titles from within the same cluster based on any movie or show you input.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+        </div>
+      </div>
+      <a href="https://github.com/laurenbloxdorf/netflix-kmeans-clustering" target="_blank" class="project-arrow">↗</a>
+    </div>
+    <div class="project-row">
+      <div>
+        <div class="proj-badge github">GitHub</div>
+        <div class="project-title">Flight ETL Pipeline</div>
+        <p class="project-desc">A production-style ETL pipeline that ingests live flight data every 15 minutes, transforms it, and loads it into PostgreSQL — fully orchestrated with Apache Airflow and containerized with Docker.</p>
+        <div class="project-tags">
+          <span class="project-tag">dbt</span>
+          <span class="project-tag">BigQuery</span>
+        </div>
+      </div>
+      <a href="https://github.com/laurenbloxdorf/REPO-NAME" target="_blank" class="project-arrow">↗</a>
+    </div>
+    <div class="project-row">
+      <div>
+        <div class="proj-badge github">GitHub</div>
+        <div class="project-title">Your Project Name</div>
+        <p class="project-desc">Describe what this project does, what problem it solves, and any interesting technical decisions. Replace this with your real repo description.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">NLP</span>
+        </div>
+      </div>
+      <a href="https://github.com/laurenbloxdorf/REPO-NAME" target="_blank" class="project-arrow">↗</a>
+    </div>
+    <!-- View all on GitHub -->
+    <div style="padding: 1.6rem 2.4rem; background: var(--surface); text-align: center;">
+      <a href="https://github.com/laurenbloxdorf" target="_blank" class="btn btn-ghost">View all repos on GitHub ↗</a>
+    </div>
+  </div>
+</section>
 
   <section id="education">
     <div class="section-header reveal">
