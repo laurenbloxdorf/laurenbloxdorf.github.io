@@ -113,20 +113,31 @@
     }
     h1 em { font-style: italic; color: var(--accent); }
 
-  .hero-name-photo {
-    display: flex;       
-    align-items: center;     
-    gap: 1rem;               
+  .hero-content {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
   }
 
+/* Text section takes remaining space */
+  .hero-text {
+    flex: 1;
+  }
+
+/* Photo container for sizing */
+  .hero-photo-container {
+    flex-shrink: 0;         /* prevents shrinking */
+    display: flex;
+    align-items: center;    /* vertically center with text */
+  }
+
+/* Hero photo styling */
   .hero-photo {
-    width: 80px;            
-    height: 80px;
-    border-radius: 50%;     
-    object-fit: cover;       
-    border: 2px solid var(--accent); 
-    opacity: 0;
-    animation: fadeUp 0.6s 0.25s forwards; 
+    width: auto;             /* automatic width */
+    height: 150px;           /* adjust height to roughly match text */
+    object-fit: cover;       /* keep image square/cropped nicely */
+    border-radius: 4px;      /* optional: slightly rounded corners */
+    border: 2px solid var(--accent); /* optional border for accent */
   }
 
     .hero-desc {
